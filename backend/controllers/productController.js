@@ -15,6 +15,10 @@ exports.getAllProducts = catchAsync(async (req, res, next) => {
 exports.createProduct = catchAsync(async (req, res, next) => {
   const { name, price, image } = req.body;
 
+  if (!name || !price || !image) {
+    return next(new AppError("All fields are required", 400));
+  }
+
   const existingProduct = await sql`
       SELECT * FROM products WHERE name = ${name}
     `;
@@ -42,7 +46,7 @@ exports.createProduct = catchAsync(async (req, res, next) => {
 
 exports.getProduct = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  if (!id || isNaN(id)) {
+  if (!id) {
     return next(new AppError("Invalid product ID", 400));
   }
   const result = await sql`
@@ -62,43 +66,32 @@ exports.updateProduct = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const { name, price, image } = req.body;
 
-  if (!id || isNaN(id)) {
-    return next(new AppError("Invalid product ID", 400));
+  if (!name || !price || !image) {
+    return next(new AppError("All fields are required", 400));
   }
 
-  const product = await sql`
-    SELECT *
-    FROM products 
-    WHERE id = ${id}
-  `;
+  const updateProduct = await sql`
+  UPDATE products
+  SET name=${name}, price=${price}, image=${image}
+  WHERE id=${id}
+  RETURNING *
+`;
 
-  if (product.length === 0) {
+  if (updateProduct.length === 0) {
     return next(new AppError("Product not found", 404));
   }
-
-  const updatedFields = {};
-  if (name) updatedFields.name = name;
-  if (price) updatedFields.price = price;
-  if (image) updatedFields.image = image;
-
-  const updatedProduct = await sql`
-    UPDATE products 
-    SET ${sql(updatedFields)}
-    WHERE id = ${id}
-    RETURNING *;
-  `;
 
   res.status(200).json({
     success: true,
     message: "Product updated successfully",
-    product: updatedProduct[0],
+    product: updateProduct[0],
   });
 });
 
 exports.deleteProduct = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
-  if (!id || isNaN(id)) {
+  if (!id) {
     return next(new AppError("Invalid product ID", 400));
   }
 
