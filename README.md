@@ -9,14 +9,14 @@ Check out the live demo here: [https://pern-product-store-fjyb.onrender.com/](ht
 
 ## 📸 Screenshots
 
-**🖥️ Chat Interface**  
-![Chat Interface](chat_ui.png)
+**🏠 Home Page**  
+![Home Interface](screenshots/home_page.png)
 
-**🔐 Login Page**  
-![Login Interface](login_ui.png)
+**🛒 Add Product Page**  
+![Add Product Interface](screenshots/add_product.png)
 
-**📝 Register**  
-![Register Interface](signup_ui.png)
+**✏️ Edit Product Page**  
+![Edit Product Interface](screenshots/edit_product.png)
 
 ## ✨ Features
 
