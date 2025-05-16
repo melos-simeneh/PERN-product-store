@@ -1,11 +1,11 @@
 
-# 💬 PERN - Product store
+# 🛍️ PERN Product Store
 
-A full-stack real-time chat application built using **React**, **Node.js**, **Express**, **Socket.io**, and **MongoDB**. Users can register, log in, and chat in real-time.
+A full-stack **Product Store** application built using the **PERN Stack** (PostgreSQL, Express.js, React, Node.js). Users can view, add, update, and delete products in the store, with persistent data storage in PostgreSQL.
 
 ## 🚀 Live Demo
 
-Check out the deployed app here: [https://realtime-chat-app-df1a.onrender.com/](https://realtime-chat-app-df1a.onrender.com/)
+Check out the live demo here: [https://pern-product-store-fjyb.onrender.com/](https://pern-product-store-fjyb.onrender.com/)
 
 ## 📸 Screenshots
 
@@ -18,35 +18,52 @@ Check out the deployed app here: [https://realtime-chat-app-df1a.onrender.com/](
 **📝 Register**  
 ![Register Interface](signup_ui.png)
 
-## 🚀 Features
+## ✨ Features
 
-- 🔒 User Authentication (Register & Login)
+- 🏪 **Product List:** View all products available in the store.
 
-- 💬 Real-time messaging using Socket.IO
+- ✍️ **Create Product:** Admins can add new products to the store.
 
-- 📦 Persistent chat history stored in MongoDB
+- ✏️ **Update Product:** Admins can update existing products.
 
-- 🟢 Online/offline user status
+- ❌ **Delete Product:** Admins can remove products from the store.
 
-- 🌐 Responsive UI with React
+- 🎨 **Theme Customization:** Switch between light and dark themes.
 
-## 🛠️ Tech Stack
+- 📦 **RESTful API** for handling product data operations.
 
-- **Frontend**: React, Socket.IO Client
+- 🔄 **Persistent Data** stored in PostgreSQL.
 
-- **Backend**: Node.js, Express, Socket.IO
+**Frontend:**
 
-- **Database**: MongoDB
+- React
+- React Router
+- TailwindCSS
+- React Hot Toast
 
-- **Authentication**: JWT, bcrypt
+**Backend:**
+
+- Node.js
+- Express.js
+- PostgreSQL
+- JWT Authentication (for admin routes)
 
 ## 📁 Project Structure
 
 ```bash
-realtime-chat-app/
-├── backend/       # Express + Socket.IO + MongoDB
-├── frontend/      # React app
-├── package.json   # Root scripts for build/start
+pern-product-store/
+├── backend/           # Express + PostgreSQL API
+│   ├── controllers/   # Logic for product CRUD
+│   ├── models/        # Sequelize models for products
+│   ├── routes/        # API routes for products
+│   ├── middlewares/   # Authentication and other middlewares
+│   └── config/        # Database and app config
+├── frontend/          # React + TailwindCSS + State Management
+│   ├── components/    # Reusable UI components (Navbar, etc.)
+│   ├── pages/         # Home and Product pages
+│   ├── store/         # Theme and other global states
+│   └── App.jsx        # Main component with routing
+└── package.json       # Project dependencies and scripts
 ```
 
 ## ⚙️ Installation
@@ -54,24 +71,23 @@ realtime-chat-app/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/melos-simeneh/realtime-chat-app.git
-cd realtime-chat-app
+git clone https://github.com/melos-simeneh/pern-product-store.git
+cd pern-product-store
 ```
 
 ### 2. Backend Setup
 
 ```bash
-cd server
+cd backend
 npm install
 ```
 
-Create a .env file inside the server directory:
+Create a .env file in the backend folder:
 
 ```ini
-NODE_ENV=development #for production set it to production
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
+NODE_ENV=development
+PORT=3000
+PG_URL=
 ```
 
 Start the backend server:
@@ -80,7 +96,7 @@ Start the backend server:
 npm run dev
 ```
 
-The backend server  will be available at [http://localhost:5000](http://localhost:5000)
+The backend server  will be available at [http://localhost:3000](http://localhost:3000)
 
 ### 3. Frontend Setup
 
@@ -89,13 +105,13 @@ cd ../frontend
 npm install
 ```
 
-Start the React app:
+Start the React development server:
 
 ```bash
 npm run dev
 ```
 
-The app will be available at [http://localhost:5173](http://localhost:5173)
+The frontend will be running at [http://localhost:5173](http://localhost:5173)
 
 ### ⚙️ Other way to run the app
 
@@ -119,10 +135,42 @@ This installs all dependencies in both frontend and backend and builds the React
 
 ## 🔌 How it Works
 
-- When a user logs in, a Socket.IO connection is established.
+- **Product Operations:** The app supports basic CRUD (Create, Read, Update, Delete) operations for products through a RESTful API.
 
-- Messages are sent and received in real-time using WebSockets.
+  - **GET** `/products`: Retrieves all products.
 
-- Chat history is saved in MongoDB and fetched on load.
+  - **POST** `/products`: Creates a new product.
 
-- User sessions are managed with JWT tokens.
+  - **GET** `/products/:id`: Retrieves a specific product by ID.
+
+  - **PUT** `/products/:id`: Updates a specific product by ID.
+
+  - **DELETE** `/products/:id:` Deletes a specific product by ID.
+
+- **Frontend:**
+
+  - **HomePage** shows a list of products with options to add and modify (admin only).
+
+  - **ProductPage** displays individual product details.
+
+  - **Navbar** includes theme switching functionality and navigation.
+
+- **Admin Authentication:** For modifying products, admins can authenticate using JWT tokens.
+
+## 🧑‍💻 API Routes
+
+- **POST** `/products` – Create a new product
+
+- **GET** `/products` – Get all products
+
+- **GET** `/products/:id` – Get a product by ID
+
+- **PUT** `/products/:id` – Update a product by ID
+
+- **DELETE** `/products/:id` – Delete a product by ID
+
+## 📧 Contact
+
+Made with 💚 by **MELOS**
+
+📬 For issues, suggestions, or contributions, feel free to open an issue.
